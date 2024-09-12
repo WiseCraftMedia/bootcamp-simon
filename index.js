@@ -1,17 +1,9 @@
-// Start Game
-$(document).ready(listenForStart());
-
-function listenForStart() {
-  $(document).on("keydown", function (ev) {
-    if (ev.key === "a" || ev.key === "A") {
-      $(document).off("keydown");
-      userClickedPattern = [];
-      nextSequence();
-    }
-  });
-}
-
-$(".btn").on("click", clickHandler);
+$(".start-game").on("click", function () {
+  userClickedPattern = [];
+  nextSequence();
+  $(".start-game").addClass("hidden");
+  $(".btn").on("click", clickHandler);
+});
 
 var buttonColors = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
@@ -47,15 +39,16 @@ function checkAnswer(userChosenColor) {
     userClicks = 0;
     level = 0;
     $("#level-title").text("GAME OVER");
-    setTimeout(() => {
-      $("#level-title").text("Press A Key to Start");
-    }, 1500);
-    playSound("wrong");
     $("body").toggleClass("game-over");
+    $(".start-game").toggleClass("game-over");
+    $(".btn").off("click");
+    playSound("wrong");
     setTimeout(() => {
+      $("#level-title").text("Simon");
       $("body").toggleClass("game-over");
+      $(".start-game").toggleClass("game-over");
+      $(".start-game").removeClass("hidden");
     }, 1000);
-    listenForStart();
   }
 
   gamePattern;
@@ -78,10 +71,6 @@ function nextSequence() {
 }
 
 function animatePress(currentColor) {
-  // $("#" + currentColor).addClass("pressed");
-  // setTimeout(() => {
-  //   $("#" + currentColor).removeClass("pressed");
-  // }, 100);
   $("#" + currentColor)
     .fadeOut(100)
     .fadeIn(100)
@@ -93,16 +82,3 @@ function playSound(name) {
   var sound = new Audio(`./sounds/${name}.mp3`);
   sound.play();
 }
-
-// clickHandler(colorButton);
-
-// $("h1").addClass("big-title");
-
-// $("body").keypress(ev => {
-//   console.log($("h1").text);
-//   if ($("h1").html() === "Go away") {
-//     $("h1").text(ev.key);
-//   } else {
-//     $("h1").html($("h1").html() + ev.key);
-//   }
-// });

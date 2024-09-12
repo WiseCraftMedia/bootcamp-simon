@@ -61,3 +61,13 @@ body {
   border: 3px solid white;
   border-radius: 2px;
 }
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .start-game {
+    width: 20vw;
+  }
+}
