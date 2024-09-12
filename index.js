@@ -34,6 +34,7 @@ function checkAnswer(userChosenColor) {
     userClickedPattern = [];
     playSound(userChosenColor);
     nextSequence();
+    userClicks = 0;
   } else if (userChosenColor === gamePattern[userClicks]) {
     // correct but pattern not complete
     console.log("yes");
